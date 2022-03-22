@@ -6,6 +6,8 @@ from .forms import ArticleForm
 
 class ArticleAdmin(admin.ModelAdmin):
     form = ArticleForm
+    list_display = ('title', 'creation_date')
+    search_fields = ['tags__keyword']
 
 
 admin.site.register(Article, ArticleAdmin)
