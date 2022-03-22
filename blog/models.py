@@ -75,7 +75,7 @@ class Article(models.Model):
                 temp_thumb.seek(0)
 
                 # Load a ContentFile into the thumbnail field so it gets saved
-                self.image_thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=True)
+                self.image_thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
                 temp_thumb.close()
 
                 return True
