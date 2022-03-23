@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
@@ -27,4 +28,15 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'detail.html'
+
+    def get_object(self, *args, **kwargs):
+        # TODO: slug is not unique, enforce it or go with pk
+        return get_object_or_404(Article, slug=self.kwargs.get('slug'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()[:10]
+
+        return context
+
 
