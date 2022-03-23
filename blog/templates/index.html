@@ -2,9 +2,19 @@
 
 {% block tags %}
 {% for tag in tags %}
-<a href="#" class="p-2 text-muted" href="#">{{ tag|capfirst }}</a>
+<a class="p-2 text-muted" href="{% url 'article_list_by_tag' tag=tag.keyword %}">{{ tag|capfirst }}</a>
 {% endfor %}
 {% endblock tags %}
+
+{% block jumbo %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+  <div class="col-md-6 px-0">
+    <h1 class="display-4 font-italic">{{ article_list.first.title|capfirst }}</h1>
+    <p class="lead my-3">{{ article_list.first.content|safe|truncatewords:33 }}</p>
+    <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
+  </div>
+</div>
+{% endblock jumbo %}
 
 {% block article_list %}
 <div class="row mb-2">
@@ -19,7 +29,7 @@
           <a class="text-dark" href="#">{{ article.title|capfirst }}</a>
         </h3>
         <div class="mb-1 text-muted">{{ article.creation_date|date:"M d" }}</div>
-        <p class="card-text mb-auto">{{ article.content|safe }}</p>
+        <p class="card-text mb-auto">{{ article.content|safe|truncatewords:16 }}</p>
         <a href="#">Continue reading</a>
       </div>
       <img class="card-img-right flex-auto d-none d-md-block" src="{{ article.image_thumbnail.url }}" alt="Card image cap">
