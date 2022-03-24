@@ -1,3 +1,7 @@
+import os
+import dj_database_url
+from django_storage_url import dsn_configured_storage_class
+
 """
 Django settings for gabor project.
 
@@ -20,12 +24,37 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3x01dkwu6mof4dmo3r1mi0f-i@%44$nxk2=!bt-fl&pp+tkju='
+SECRET_KEY = os.environ.get('SECRET_KEY', '3x01dkwu6mof4dmo3r1mi0f-i@%44$nxk2=!bt-fl&pp+tkju=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG')
+IS_PROD = os.environ.get('DJANGO_IS_PROD')
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+if IS_PROD:
+    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT') != "False"
+else:
+    SECURE_SSL_REDIRECT = False
+    
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
+
+DIVIO_DOMAIN = os.environ.get('DOMAIN', '')
+DIVIO_DOMAIN_ALIASES = [
+    d.strip()
+    for d in os.environ.get('DOMAIN_ALIASES', '').split(',')
+    if d.strip()
+]
+
+DIVIO_DOMAIN_REDIRECTS = [
+    d.strip()
+    for d in os.environ.get('DOMAIN_REDIRECTS', '').split(',')
+    if d.strip()
+]
+
+ALLOWED_HOSTS += [DIVIO_DOMAIN] + DIVIO_DOMAIN_ALIASES + DIVIO_DOMAIN_REDIRECTS
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -79,24 +108,8 @@ WSGI_APPLICATION = 'gabor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'OPTIONS': {
-                'service': 'what_service',
-                'passfile': '.db_pass_file',
-            },
-        }
-    }
-
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite://:memory:')
+DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -133,6 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

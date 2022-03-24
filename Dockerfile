@@ -2,6 +2,7 @@ FROM divio/base:1.1-py3.10-slim-bullseye-dev
 RUN apt-get update
 WORKDIR /gabor
 COPY . /gabor
+RUN /usr/local/bin/python -m pip install --upgrade pip wheel
 RUN pip install -r requirements.pip
 RUN python manage.py collectstatic --noinput
 EXPOSE 80
