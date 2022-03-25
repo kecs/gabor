@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', '3x01dkwu6mof4dmo3r1mi0f-i@%44$nxk2=!bt-fl&pp+tkju=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DJANGO_DEBUG'))
-IS_PROD = int(os.environ.get('DJANGO_IS_PROD'))
+DEBUG = int(os.environ.get('DJANGO_DEBUG', '0'))
+IS_PROD = int(os.environ.get('DJANGO_IS_PROD', '0'))
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
