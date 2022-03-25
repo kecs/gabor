@@ -155,3 +155,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 THUMBNAIL_SIZE = (200, 250)
 
+
