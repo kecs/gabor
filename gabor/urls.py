@@ -20,7 +20,9 @@ from django.contrib import admin
 from django.urls import (include, path)
 
 
-if not settings.IS_PROD:
+# DEMO ONLY! Move static assets to cdn!
+# if not settings.IS_PROD:
+if 1:
     urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static('uploads', document_root='uploads')
 else:
