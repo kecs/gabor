@@ -5,7 +5,7 @@
   <div class="col-md-6 px-0">
     <h1 class="display-4 font-italic">{{ article_list.first.title|capfirst }}</h1>
     <p class="lead my-3">{{ article_list.first.content|safe|truncatewords:33 }}</p>
-    <p class="lead mb-0"><a href="{% url 'article_detail' slug=article.slug %}" class="text-white font-weight-bold">Continue reading...</a></p>
+    <p class="lead mb-0"><a href="{% url 'article_detail' slug=article_list.first.slug %}" class="text-white font-weight-bold">Continue reading...</a></p>
   </div>
 </div>
 {% endblock jumbo %}
