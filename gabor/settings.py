@@ -164,9 +164,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 THUMBNAIL_SIZE = (200, 250)
 
 
-<<<<<<< HEAD
-
-=======
 if IS_PROD:
     DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
 
@@ -179,4 +176,4 @@ if IS_PROD:
     # only required for local file storage and serving, in development
     MEDIA_URL = 'media/'
     MEDIA_ROOT = os.path.join('/data/media/')
->>>>>>> develop
+
