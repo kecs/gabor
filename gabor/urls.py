@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import (include, path)
 
 
-if settings.DEBUG:
+if not settings.IS_PROD:
     urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static('uploads', document_root='uploads')
 else:
