@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block detail %}
 <div class="row">
   <div class="col-lg-12 blog-main">
     <h3 class="pb-3 mb-4 font-italic border-bottom">
-      {{ object.title|capfirst }}
+      {% translate object.title|capfirst %}
     </h3>
 
     <div class="blog-post">
-      <p class="blog-post-meta">{{ object.creation_date|date:"M d. " }} {% for tag in object.tags.all %}
-	<a href="{% url 'article_list_by_tag' tag=tag.keyword %}">{{ tag|capfirst }} </a>{% endfor %}
+      <p class="blog-post-meta">{{ object.creation_date|date:"M d. " }}
+	{% for tag in object.tags.all %}
+	<a href="{% url 'article_list_by_tag' tag=tag.keyword %}">{% translate tag.keyword|capfirst %} </a>
+	{% endfor %}
       </p>
       {{ object.content|safe }}
       

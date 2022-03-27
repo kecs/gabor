@@ -1,8 +1,12 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (get_object_or_404, render)
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
 from blog.models import (Article, Tag)
+
+
+def handler404(request, *args, **kwargs):
+    return render(request, '404.html', status=404)
 
 
 class ArticleListView(ListView):

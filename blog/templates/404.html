@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block detail %}
+<div class="row">
+  <div class="col-lg-12 blog-main">
+    <h3 class="pb-3 mb-4 font-italic border-bottom">
+      {% translate 'not found'|capfirst %}
+    </h3>
+
+    <div class="blog-post">
+      <a href="{% url 'article_list' %}">{% translate 'back to the main page'|capfirst %} </a>
+    </div><!-- /.blog-main -->
+
+</div><!-- /.row -->
+{% endblock detail %}

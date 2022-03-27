@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block jumbo %}
 <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
   <div class="col-md-6 px-0">
-    <h1 class="display-4 font-italic">{{ article_list.first.title|capfirst }}</h1>
+    <h1 class="display-4 font-italic">{% translate article_list.first.title|capfirst %}</h1>
     <p class="lead my-3">{{ article_list.first.content|safe|truncatewords:33 }}</p>
     <p class="lead mb-0"><a href="{% url 'article_detail' slug=article_list.first.slug %}" class="text-white font-weight-bold">Continue reading...</a></p>
   </div>
@@ -17,7 +18,10 @@
     <div class="card flex-md-row mb-4 box-shadow h-md-250 overflow-hidden">
       <div class="card-body d-flex flex-column align-items-start" style="overflow:hidden;">
         <strong class="d-inline-block mb-2 text-primary">
-	{{ article.tags.all|join:", " }}
+	  {% for tag in article.tags.all %}
+	  {% translate tag.keyword|capfirst %}
+	  {% if not forloop.last %},{% endif %}
+	  {% endfor %}
 	</strong>
         <h3 class="mb-0">
           <a class="text-dark" href="{% url 'article_detail' slug=article.slug %}">{{ article.title|capfirst }}</a>

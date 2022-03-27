@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import (include, path)
 
+from blog.views import handler404
 
 # DEMO ONLY! Move static assets to cdn!
 # if not settings.IS_PROD:
